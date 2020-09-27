@@ -10,12 +10,18 @@ devices before the root device is mounted.
 Commonly used to protect against silent data corruption when used together
 with Linux MD-RAID devices
 
-Place the attached scripts in /usr/lib/dracut/modules.d/90integrity directory
-edit integrity-mount.sh to use identifiers and names of partitions you have
-(use `blkid /dev/sdXY` on partitions with dm-integrity volumes to get
-partuuids), set the integrity algorithm you use (the -I option)
-and run `dracut -f` to put those files into initramfs, next reboot should
-cause them to be automatically started on boot.
+## Installation
+
+1. Create the `/usr/lib/dracut/modules.d/90integrity` directory.
+2. Copy the files from `scripts` to `/usr/lib/dracut/modules.d/90integrity`
+   directory.
+3. Edit the `integrity-mount.sh` file to use identifiers and names of
+   partitions you have (use `blkid /dev/sdXY` on partitions with dm-integrity
+   volumes to get partuuids) and set the integrity algorithm you use
+   (the `-I` option).
+4. Run `dracut -f` to put those files into initramfs, next reboot should
+   cause them to be automatically started on boot.
 
 Caution: I've noticed that in some VMs all virtual disks are the same, thus
-the partuuids are the same!
+the partuuids are the same! Use of raw device names instead should be safe
+then (i.e. `/dev/sda1`).
