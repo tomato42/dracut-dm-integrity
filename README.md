@@ -25,3 +25,9 @@ with Linux MD-RAID devices
 Caution: I've noticed that in some VMs all virtual disks are the same, thus
 the partuuids are the same! Use of raw device names instead should be safe
 then (i.e. `/dev/sda1`).
+
+Note: Dracut will continue running until root is mounted and all the
+devices specified on kernel command line have been processed, so the
+trigger may not run if the root fs isn't backed by the integrity device.
+You can force it by specifying the UUID of the MD RAID, like so:
+`rd.md.uuid=f00faa00:00000000:c0ffee00:00000000`
